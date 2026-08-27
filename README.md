@@ -1,1 +1,1 @@
-# 32nd-school
+# 32-school-sms-ready
