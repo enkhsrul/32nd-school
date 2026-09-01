@@ -75,7 +75,7 @@ nav ul li a:hover {
 /* Нүүр хэсэг */
 .hero {
     height: 90vh;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcU2twf4E6oW9hpA8fPoCOm8lZsmM6zONpQKB9_6bK3e5SDjh1EHme_KU&s=10) no-repeat center center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -294,6 +294,91 @@ footer {
         font-size: 2rem;
     }
 }
+/* Сургуулийн онцлох амжилт болон үзүүлэлтүүд */
+.school-highlights {
+    background-color: #fff;
+    padding: 60px 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.stat-item {
+    background: #f4f7f6;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    border-bottom: 4px solid #ff6e40;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.stat-item i {
+    font-size: 2.5rem;
+    color: #ff6e40;
+    margin-bottom: 15px;
+}
+
+.stat-item h3 {
+    color: #1e3d59;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.stat-item p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* Зургийн цомог / Слайдер хэсэг */
+.sub-title {
+    text-align: center;
+    color: #1e3d59;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+}
+
+.slider-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.slide-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.slide-card:hover {
+    transform: translateY(-5px);
+}
+
+.slide-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.slide-text {
+    padding: 20px;
+}
+
+.slide-text h4 {
+    color: #1e3d59;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.slide-text p {
+    color: #555;
+    font-size: 0.9rem;
+}
 /* Таб товчлуурын дизайн */
 .tab-buttons {
     display: flex;
@@ -380,4 +465,14 @@ footer {
     color: #666;
     font-size: 0.85rem;
     padding: 0 10px;
+}
+.logo60 {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
