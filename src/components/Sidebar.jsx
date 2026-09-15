@@ -39,12 +39,23 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="brand">
-        <GraduationCap size={25} />
-        <div>
-          <strong>32-р Сургууль</strong>
-          <small>{profile?.role === "ADMIN" ? "Админ" : profile?.role === "TEACHER" ? "Багш" : "Сурагч"}</small>
-        </div>
-      </div>
+  <img
+    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-1-WAn-XxVbwcXuM4ccfDhK_qOuVdixub85x6dvWCTPTMb33PGR502CHX&s=10"
+    alt="32-р Сургууль"
+    className="school-logo"
+  />
+
+  <div>
+    <strong>32-р Сургууль</strong>
+    <small>
+      {profile?.role === "ADMIN"
+        ? "Админ"
+        : profile?.role === "TEACHER"
+        ? "Багш"
+        : "Сурагч"}
+    </small>
+  </div>
+</div>
 
       <nav className="nav">
         {items.map(([path, label, Icon]) => (

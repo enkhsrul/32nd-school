@@ -1,5 +1,3 @@
--- 32-р Сургууль SMS
--- Run in Supabase SQL Editor.
 
 create extension if not exists "uuid-ossp";
 
