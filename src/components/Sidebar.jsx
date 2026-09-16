@@ -1,8 +1,14 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
-  Home, Users, BookOpen, ClipboardList, MessageCircle,
-  LogOut, GraduationCap, BarChart3
+  Home,
+  Users,
+  BookOpen,
+  ClipboardList,
+  MessageCircle,
+  LogOut,
+  GraduationCap,
+  Bell
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -12,16 +18,19 @@ const menus = {
     ["/admin/users", "Хэрэглэгчид", Users],
     ["/admin/classes", "Ангиуд", GraduationCap]
   ],
+
   TEACHER: [
     ["/teacher", "Нүүр", Home],
     ["/teacher/attendance", "Ирц бүртгэл", ClipboardList],
     ["/teacher/grades", "Дүн оруулах", BookOpen],
     ["/chat", "Мессеж", MessageCircle]
   ],
+
   STUDENT: [
     ["/student", "Миний нүүр", Home],
     ["/student/grades", "Миний дүн", BookOpen],
     ["/student/assignments", "Даалгавар", ClipboardList],
+    ["/student/notifications", "Мэдэгдэл", Bell],
     ["/chat", "Мессеж", MessageCircle]
   ]
 };
@@ -29,6 +38,7 @@ const menus = {
 export default function Sidebar() {
   const { profile, logout } = useAuth();
   const navigate = useNavigate();
+
   const items = menus[profile?.role] || [];
 
   const doLogout = async () => {
@@ -38,30 +48,46 @@ export default function Sidebar() {
 
   return (
     <aside className="sidebar">
-      <div className="brand">
-  <img
-    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-1-WAn-XxVbwcXuM4ccfDhK_qOuVdixub85x6dvWCTPTMb33PGR502CHX&s=10"
-    alt="32-р Сургууль"
-    className="school-logo"
-  />
 
-  <div>
-    <strong>32-р Сургууль</strong>
-    <small>
-      {profile?.role === "ADMIN"
-        ? "Админ"
-        : profile?.role === "TEACHER"
-        ? "Багш"
-        : "Сурагч"}
-    </small>
-  </div>
-</div>
+      <div className="brand">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-1-WAn-XxVbwcXuM4ccfDhK_qOuVdixub85x6dvWCTPTMb33PGR502CHX&s=10"
+          alt="32-р Сургууль"
+          className="school-logo"
+        />
+
+        <div>
+          <strong>32-р Сургууль</strong>
+
+          <small>
+            {profile?.role === "ADMIN"
+              ? "Админ"
+              : profile?.role === "TEACHER"
+              ? "Багш"
+              : "Сурагч"}
+          </small>
+        </div>
+      </div>
 
       <nav className="nav">
         {items.map(([path, label, Icon]) => (
-          <NavLink key={path} to={path} end={path === "/admin" || path === "/teacher" || path === "/student"}>
+          <NavLink
+            key={path}
+            to={path}
+            end={
+              path === "/admin" ||
+              path === "/teacher" ||
+              path === "/student"
+            }
+          >
             {({ isActive }) => (
-              <span className={isActive ? "nav-item active" : "nav-item"}>
+              <span
+                className={
+                  isActive
+                    ? "nav-item active"
+                    : "nav-item"
+                }
+              >
                 <Icon size={19} />
                 {label}
               </span>
@@ -71,8 +97,10 @@ export default function Sidebar() {
       </nav>
 
       <button className="logout" onClick={doLogout}>
-        <LogOut size={18} /> Гарах
+        <LogOut size={18} />
+        Гарах
       </button>
+
     </aside>
   );
 }
