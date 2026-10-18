@@ -55,109 +55,44 @@ function HomeRedirect() {
 function AppRoutes() {
   return (
     <Routes>
-
       {/* LOGIN */}
-      <Route
-        path="/login"
-        element={<Login />}
-      />
+      <Route path="/login" element={<Login />} />
 
       {/* HOME REDIRECT */}
-      <Route
-        path="/"
-        element={<HomeRedirect />}
-      />
+      <Route path="/" element={<HomeRedirect />} />
 
-      {/* ================= ADMIN ================= */}
-      <Route
-        element={
-          <ProtectedRoute allowedRoles={["ADMIN"]} />
-        }
-      >
+      {/* ADMIN */}
+      <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
         <Route element={<Layout />}>
-
-          <Route
-            path="/admin"
-            element={<AdminDashboard />}
-          />
-
-          <Route
-            path="/admin/users"
-            element={<Users />}
-          />
-
-          <Route
-            path="/admin/classes"
-            element={<Classes />}
-          />
-
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/users" element={<Users />} />
+          <Route path="/admin/classes" element={<Classes />} />
         </Route>
       </Route>
 
-      {/* ================= TEACHER ================= */}
-      <Route
-        element={
-          <ProtectedRoute allowedRoles={["TEACHER"]} />
-        }
-      >
+      {/* TEACHER */}
+      <Route element={<ProtectedRoute allowedRoles={["TEACHER"]} />}>
         <Route element={<Layout />}>
-
-          <Route
-            path="/teacher"
-            element={<Attendance />}
-          />
-
-          <Route
-            path="/teacher/attendance"
-            element={<Attendance />}
-          />
-
-          <Route
-            path="/teacher/grades"
-            element={<TeacherGrades />}
-          />
-
-          <Route
-            path="/chat"
-            element={<Chat />}
-          />
-
+          <Route path="/teacher" element={<Attendance />} />
+          <Route path="/teacher/attendance" element={<Attendance />} />
+          <Route path="/teacher/grades" element={<TeacherGrades />} />
         </Route>
       </Route>
 
-      {/* ================= STUDENT ================= */}
-      <Route
-        element={
-          <ProtectedRoute allowedRoles={["STUDENT"]} />
-        }
-      >
+      {/* STUDENT */}
+      <Route element={<ProtectedRoute allowedRoles={["STUDENT"]} />}>
         <Route element={<Layout />}>
+          <Route path="/student" element={<StudentDashboard />} />
+          <Route path="/student/grades" element={<StudentGrades />} />
+          <Route path="/student/assignments" element={<Assignments />} />
+          <Route path="/student/notifications" element={<Notifications />} />
+        </Route>
+      </Route>
 
-          <Route
-            path="/student"
-            element={<StudentDashboard />}
-          />
-
-          <Route
-            path="/student/grades"
-            element={<StudentGrades />}
-          />
-
-          <Route
-            path="/student/assignments"
-            element={<Assignments />}
-          />
-
-          <Route
-            path="/student/notifications"
-            element={<Notifications />}
-          />
-
-          <Route
-            path="/chat"
-            element={<Chat />}
-          />
-
+      {/* SHARED CHAT: students and teachers can message each other */}
+      <Route element={<ProtectedRoute allowedRoles={["TEACHER", "STUDENT"]} />}>
+        <Route element={<Layout />}>
+          <Route path="/chat" element={<Chat />} />
         </Route>
       </Route>
 
@@ -173,11 +108,7 @@ function AppRoutes() {
       />
 
       {/* UNKNOWN ROUTE */}
-      <Route
-        path="*"
-        element={<Navigate to="/" replace />}
-      />
-
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
