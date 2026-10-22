@@ -54,11 +54,16 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = (email, password) =>
-    supabase.auth.signInWithPassword({ email, password });
+    supabase.auth.signInWithPassword({ email: email.trim().toLowerCase(), password });
+
+  const requestPasswordReset = (email) =>
+    supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
+      redirectTo: `${window.location.origin}/reset-password`
+    });
 
   const signup = (email, password, firstName, lastName) =>
     supabase.auth.signUp({
-      email,
+      email: email.trim().toLowerCase(),
       password,
       options: {
         data: { first_name: firstName, last_name: lastName }
@@ -69,7 +74,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={{
-      user, profile, loading, login, signup, logout, refreshProfile: () => loadProfile(user)
+      user, profile, loading, login, signup, logout, requestPasswordReset, refreshProfile: () => loadProfile(user)
     }}>
       {children}
     </AuthContext.Provider>
