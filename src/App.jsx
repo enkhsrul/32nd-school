@@ -7,6 +7,7 @@ import Layout from "./components/Layout";
 
 // Auth
 import Login from "./pages/auth/Login";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 // Student
 import StudentDashboard from "./pages/student/Dashboard";
@@ -57,6 +58,7 @@ function AppRoutes() {
     <Routes>
       {/* LOGIN */}
       <Route path="/login" element={<Login />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
 
       {/* HOME REDIRECT */}
       <Route path="/" element={<HomeRedirect />} />
