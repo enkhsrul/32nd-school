@@ -4,7 +4,7 @@ import { GraduationCap, Lock, Mail } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 
 export default function Login() {
-  const { user, login, signup } = useAuth();
+  const { user, login, signup, requestPasswordReset } = useAuth();
   const navigate = useNavigate();
   const [mode, setMode] = useState("login");
   const [form, setForm] = useState({ email: "", password: "", firstName: "", lastName: "" });
@@ -17,9 +17,15 @@ export default function Login() {
     e.preventDefault();
     setError("");
     setBusy(true);
+    if (mode === "forgot") {
+      const result = await requestPasswordReset(form.email);
+      setBusy(false);
+      setError(result.error ? result.error.message : "Нууц үг сэргээх холбоосыг имэйл рүү илгээлээ. Inbox болон Spam хавтсаа шалгаарай.");
+      return;
+    }
     const result = mode === "login"
       ? await login(form.email, form.password)
-      : await signup(form.email, form.password, form.firstName, form.lastName);
+      : await signup(form.email.trim().toLowerCase(), form.password, form.firstName, form.lastName);
     setBusy(false);
 
     if (result.error) {
@@ -50,14 +56,15 @@ export default function Login() {
           <label><Mail size={16}/> Email
             <input type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} required />
           </label>
-          <label><Lock size={16}/> Нууц үг
+          {mode !== "forgot" && <label><Lock size={16}/> Нууц үг
             <input type="password" value={form.password} onChange={e => setForm({...form, password: e.target.value})} minLength={6} required />
-          </label>
+          </label>}
           {error && <div className="error">{error}</div>}
-          <button className="primary full" disabled={busy}>{busy ? "Түр хүлээнэ үү..." : mode === "login" ? "Нэвтрэх" : "Бүртгүүлэх"}</button>
+          <button className="primary full" disabled={busy}>{busy ? "Түр хүлээнэ үү..." : mode === "login" ? "Нэвтрэх" : mode === "signup" ? "Бүртгүүлэх" : "Сэргээх холбоос илгээх"}</button>
         </form>
 
-        <button className="link-button" onClick={() => { setMode(mode === "login" ? "signup" : "login"); setError(""); }}>
+        {mode === "login" && <button type="button" className="link-button" onClick={() => { setMode("forgot"); setError(""); }}>Нууц үгээ мартсан уу?</button>}
+        <button type="button" className="link-button" onClick={() => { setMode(mode === "login" ? "signup" : "login"); setError(""); }}>
           {mode === "login" ? "Шинэ хэрэглэгч үүсгэх" : "Нэвтрэх хэсэг рүү буцах"}
         </button>
       </div>
